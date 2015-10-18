@@ -12,17 +12,40 @@ import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
 
 import { addMessage } from '../actions/actions.js';
-
+   var ref = new Firebase('https://luminous-torch-3310.firebaseio.com');
+    var commentsRef = ref.child("commentsBox");
+//store.dispatch(addMessage('testing 123...', [45,65]))
+// <form onSubmit={() => { dispatch(addMessage("hey hey", [45,65]))}  }>
 
 class App extends Component {
+  // componentDidMount(){
+  //   console.log("damn thing loaded");
+  //   commentsRef.on('child_added', function(snapshot) {
+  //     var message = snapshot.val();
+  //     console.log("This is the message that should render:", message.text)
+  //     //store.dispatch(addMessage(message.text, [50,50]));
+  //   });
+  // }
+ handleClick(e) {
+   const node = this.refs.input;
+   const text = node.value.trim();
+   this.props.dispatch(addMessage(text, [45,65]));
+   node.value = '';
+ }
   render () {
     // from store via connect call (below)
-    const { messages } = this.props;
+    const { messages, dispatch } = this.props;
     const previewList = messages.map( (msg) => 
       {return (<div> AT {msg.location} SOMEBODY SAYS {msg.message} </div>);}
     );
     return (
       <div>
+        <div>
+               <input type='text' ref='input' />
+               <button onClick={e => this.handleClick(e)}>
+                 Add
+               </button>
+        </div>
         {previewList}
       </div>
     );
@@ -42,6 +65,33 @@ function select(state) {
 
 
 export default connect(select)(App);
+
+
+/////
+// export default class AddTodo extends Component {
+//   render() {
+//     return (
+//       <div>
+//         <input type='text' ref='input' />
+//         <button onClick={e => this.handleClick(e)}>
+//           Add
+//         </button>
+//       </div>
+//     );
+//   }
+
+//   handleClick(e) {
+//     const node = this.refs.input;
+//     const text = node.value.trim();
+//     this.props.onAddClick(text);
+//     node.value = '';
+//   }
+// }
+
+// AddTodo.propTypes = {
+//   onAddClick: PropTypes.func.isRequired
+// };
+
 
 // var React = require('react');
 
