@@ -37,7 +37,7 @@ class App extends Component {
     // from store via connect call (below)
     const { messages, dispatch } = this.props;
     const previewList = messages.map( (msg) => 
-      {return (<div> At these coords-- {msg.location.join(", ")} -- the user says "{msg.message}" </div>);}
+      {return (<div> At these coords-- {msg.location.join(", ")} -- the user says "{msg.message}" which was {msg.distance} km away</div>);}
     );
     return (
       <div>

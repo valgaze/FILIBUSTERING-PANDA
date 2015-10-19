@@ -23,7 +23,8 @@ export function messages (state = initialState, action) {  // ES6note: default a
           messages: [...state.messages,               // ES6note: '...' spreads an array into individual values (makes adding the next array item without mutating (i.e. push) easy)
           {
             message: action.message,
-            location: action.location
+            location: action.location,
+            distance: action.distance
           }
         ]
         });

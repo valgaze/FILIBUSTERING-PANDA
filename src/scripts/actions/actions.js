@@ -12,10 +12,11 @@ export function addMessage (message, location) {  //ES6-style module.exports.add
   };
 };
 
-export function receiveMessage (message, location) {  //ES6-style module.exports.addMessage = addMessage
+export function receiveMessage (message, location, distance) {  //ES6-style module.exports.addMessage = addMessage
   return {
     type: RECEIVE_MESSAGE,
     message,
-    location
+    location,
+    distance
   };
 };

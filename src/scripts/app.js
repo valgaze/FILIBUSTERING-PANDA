@@ -29,14 +29,13 @@ var geoQuery = geoFire.query({
 });
 
 geoQuery.on("key_entered", function(key, location, distance) {  
-  commentsRef
+   commentsRef
     .child(key)
     .once('value', function(snapshot) {
         setTimeout(function(){
-          store.dispatch(receiveMessage(snapshot.val().text, location))
+          store.dispatch(receiveMessage(snapshot.val().text, location, distance));
         }, 50);
     });
-
 });
 
 
