@@ -29,6 +29,7 @@ class App extends Component {
  handleClick(e) {
    const node = this.refs.input;
    const text = node.value.trim();
+   var randomLoc = [Math.random()*90, Math.random()*90];
    this.props.dispatch(addMessage(text, [45,65]));
    node.value = '';
  }
@@ -36,7 +37,7 @@ class App extends Component {
     // from store via connect call (below)
     const { messages, dispatch } = this.props;
     const previewList = messages.map( (msg) => 
-      {return (<div> AT {msg.location} SOMEBODY SAYS {msg.message} </div>);}
+      {return (<div> At these coords, {msg.location.join(", ")} , SOMEBODY SAYS {msg.message} </div>);}
     );
     return (
       <div>

@@ -25,17 +25,15 @@ var geoFire = new GeoFire(geoRef);
       
 var geoQuery = geoFire.query({
       center: [50,50],
-      radius: 3000
+      radius: 5000
 });
 
-geoQuery.on("key_entered", function(key, location, distance) {
-  console.log("\n\n\n\n\nsomething fired!", geoQuery.radius())
-  
+geoQuery.on("key_entered", function(key, location, distance) {  
   commentsRef
     .child(key)
     .once('value', function(snapshot) {
         setTimeout(function(){
-          store.dispatch(receiveMessage(snapshot.val().text, [45,50]))
+          store.dispatch(receiveMessage(snapshot.val().text, location))
         }, 50);
     });
 

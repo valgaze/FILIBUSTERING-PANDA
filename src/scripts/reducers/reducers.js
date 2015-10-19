@@ -9,10 +9,9 @@ const initialState = {
 export function messages (state = initialState, action) {  // ES6note: default assignment to [] if state is undefined
   switch (action.type) {
     case ADD_MESSAGE:
-
       var newRef = commentsRef.push({text: action.message});
-      var geoRef = ref.child("geolocations");
-      var geoFire = new GeoFire(geoRef);
+        var geoRef = ref.child("geolocations");
+        var geoFire = new GeoFire(geoRef);
         var randomLoc = [Math.random()*90, Math.random()*90];
         geoFire.set(newRef.key(), randomLoc);
       return Object.assign({}, state, {});
