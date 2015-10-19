@@ -11,7 +11,12 @@ export function messages (state = initialState, action) {  // ES6note: default a
     case ADD_MESSAGE:
 
       var newRef = commentsRef.push({text: action.message});
-      return Object.assign({}, state, {}); 
+      var geoRef = ref.child("geolocations");
+      var geoFire = new GeoFire(geoRef);
+        var randomLoc = [Math.random()*90, Math.random()*90];
+        geoFire.set(newRef.key(), randomLoc);
+      return Object.assign({}, state, {});
+
       case RECEIVE_MESSAGE:
         
         return Object.assign({}, state,

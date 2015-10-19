@@ -13,20 +13,42 @@ import { messages } from './reducers/reducers.js';
 import { addMessage, receiveMessage } from './actions/actions.js'
    var ref = new Firebase('https://luminous-torch-3310.firebaseio.com');
     var commentsRef = ref.child("commentsBox");
-console.log("messsages:", messages);
-console.log("addMessage:", addMessage);
 
 let store = createStore(messages);      //ES6-style var declaration
 
 console.log("INITIAL STATE:", store.getState());
 
-commentsRef.on('child_added', function(snapshot) {
-  console.log("child_added FIRED.")
-  setTimeout(function(){
-    store.dispatch(receiveMessage(snapshot.val().text, [45,50]))
-  }, 50);
+
+
+var geoRef = ref.child("geolocations");
+var geoFire = new GeoFire(geoRef);
+      
+var geoQuery = geoFire.query({
+      center: [50,50],
+      radius: 3000
+});
+
+geoQuery.on("key_entered", function(key, location, distance) {
+  console.log("\n\n\n\n\nsomething fired!", geoQuery.radius())
+  
+  commentsRef
+    .child(key)
+    .once('value', function(snapshot) {
+        setTimeout(function(){
+          store.dispatch(receiveMessage(snapshot.val().text, [45,50]))
+        }, 50);
+    });
 
 });
+
+
+// commentsRef.on('child_added', function(snapshot) {
+//   console.log("child_added FIRED.")
+//   setTimeout(function(){
+//     store.dispatch(receiveMessage(snapshot.val().text, [45,50]))
+//   }, 50);
+
+// });
 
   // commentsRef.on('child_added', function(snapshot) {
       //   var message = snapshot.val();
