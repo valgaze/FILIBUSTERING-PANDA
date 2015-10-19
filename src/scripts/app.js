@@ -11,8 +11,12 @@ import { Provider } from 'react-redux';
 import App from './components/tinyList.js';
 import { messages } from './reducers/reducers.js';
 import { addMessage, receiveMessage } from './actions/actions.js'
-   var ref = new Firebase('https://luminous-torch-3310.firebaseio.com');
-    var commentsRef = ref.child("commentsBox");
+
+const Firebase = require('firebase');
+const GeoFire = require('geoFire');
+const config = require('../../config');
+const ref = new Firebase(`${ config.FIREBASE_ROOT }`);
+const commentsRef = ref.child("commentsBox");
 
 let store = createStore(messages);      //ES6-style var declaration
 

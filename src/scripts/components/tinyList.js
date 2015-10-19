@@ -12,8 +12,11 @@ import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
 
 import { addMessage } from '../actions/actions.js';
-   var ref = new Firebase('https://luminous-torch-3310.firebaseio.com');
-    var commentsRef = ref.child("commentsBox");
+const Firebase = require('firebase');
+const GeoFire = require('geoFire');
+const config = require('../../../config');
+const ref = new Firebase(`${ config.FIREBASE_ROOT }`);
+const commentsRef = ref.child("commentsBox");
 //store.dispatch(addMessage('testing 123...', [45,65]))
 // <form onSubmit={() => { dispatch(addMessage("hey hey", [45,65]))}  }>
 

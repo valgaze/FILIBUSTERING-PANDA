@@ -1,6 +1,11 @@
 import { ADD_MESSAGE, RECEIVE_MESSAGE } from '../actions/actions.js'  // ES6note: like var ADD_MESSAGE = require('../actions/actions.js').ADD_MESSAGE
-      var ref = new Firebase('https://luminous-torch-3310.firebaseio.com');
-        var commentsRef = ref.child("commentsBox");
+      // var ref = new Firebase('https://luminous-torch-3310.firebaseio.com');
+      //   var commentsRef = ref.child("commentsBox");
+const Firebase = require('firebase');
+const GeoFire = require('geoFire');
+const config = require('../../../config');
+const ref = new Firebase(`${ config.FIREBASE_ROOT }`);
+const commentsRef = ref.child("commentsBox");
 
 const initialState = {
   messages: []
