@@ -1,4 +1,5 @@
 export const ADD_MESSAGE = 'ADD_MESSAGE';
+export const RECEIVE_MESSAGE = 'RECEIVE_MESSAGE';
 
 
 
@@ -11,3 +12,10 @@ export function addMessage (message, location) {  //ES6-style module.exports.add
   };
 };
 
+export function receiveMessage (message, location) {  //ES6-style module.exports.addMessage = addMessage
+  return {
+    type: RECEIVE_MESSAGE,
+    message,
+    location
+  };
+};

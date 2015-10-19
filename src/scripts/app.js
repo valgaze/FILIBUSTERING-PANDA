@@ -10,7 +10,7 @@ import { Provider } from 'react-redux';
 
 import App from './components/tinyList.js';
 import { messages } from './reducers/reducers.js';
-import { addMessage } from './actions/actions.js'
+import { addMessage, receiveMessage } from './actions/actions.js'
    var ref = new Firebase('https://luminous-torch-3310.firebaseio.com');
     var commentsRef = ref.child("commentsBox");
 console.log("messsages:", messages);
@@ -20,8 +20,12 @@ let store = createStore(messages);      //ES6-style var declaration
 
 console.log("INITIAL STATE:", store.getState());
 
-ref.on('child_added', function(snapshot) {
-  console.log("want to render THIS MSG:", snapshot.val())
+commentsRef.on('child_added', function(snapshot) {
+  console.log("child_added FIRED.")
+  setTimeout(function(){
+    store.dispatch(receiveMessage(snapshot.val().text, [45,50]))
+  }, 50);
+
 });
 
   // commentsRef.on('child_added', function(snapshot) {
