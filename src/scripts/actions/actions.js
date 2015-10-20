@@ -13,6 +13,7 @@ export function addMessage (message, location) {  //ES6-style module.exports.add
 };
 
 export function receiveMessage (message, location, distance) {  //ES6-style module.exports.addMessage = addMessage
+  console.log("\n\n\n\n IT GOES TO ACTIONS.JS")
   return {
     type: RECEIVE_MESSAGE,
     message,

@@ -20,7 +20,7 @@ const commentsRef = ref.child("commentsBox");
 
 let store = createStore(messages);      //ES6-style var declaration
 
-console.log("INITIAL STATE:", store.getState());
+console.log("INITIAL STATE:", typeof store, store.getState());
 
 
 

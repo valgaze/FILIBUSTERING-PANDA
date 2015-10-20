@@ -22,9 +22,14 @@ export function messages (state = initialState, action) {  // ES6note: default a
       return Object.assign({}, state, {});
 
       case RECEIVE_MESSAGE:
-        
+        console.log("in reducers:", state.messages)
+        state.messages.sort(function(a, b){
+              console.log(a.distance,":", b.distance)
+              return a.distance - b.distance;
+            });
         return Object.assign({}, state,
         {
+
           messages: [...state.messages,               // ES6note: '...' spreads an array into individual values (makes adding the next array item without mutating (i.e. push) easy)
           {
             message: action.message,
