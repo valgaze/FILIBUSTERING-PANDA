@@ -39,7 +39,13 @@ class App extends Component {
   render () {
     // from store via connect call (below)
     const { messages, dispatch } = this.props;
-    const previewList = messages.map( (msg) => 
+    
+    messages.sort(function(a, b){
+      return a.distance - b.distance;
+    });
+
+    let previewList = messages.map((msg) => 
+       
       {return (<div>{msg.location.join(", ")}: the user says "{msg.message}" {msg.distance.toFixed(2)} km away</div>);}
     );
     return (

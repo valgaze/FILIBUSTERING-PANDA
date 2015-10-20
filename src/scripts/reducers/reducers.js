@@ -14,29 +14,21 @@ const initialState = {
 export function messages (state = initialState, action) {  // ES6note: default assignment to [] if state is undefined
   switch (action.type) {
     case ADD_MESSAGE:
-      var newRef = commentsRef.push({text: action.message});
+        var newRef = commentsRef.push({text: action.message});
         var geoRef = ref.child("geolocations");
         var geoFire = new GeoFire(geoRef);
         var randomLoc = [Math.random()*90, Math.random()*90];
         geoFire.set(newRef.key(), randomLoc);
-      return Object.assign({}, state, {});
+
+      return Object.assign({}, state);
 
       case RECEIVE_MESSAGE:
-        console.log("in reducers:", state.messages)
-        state.messages.sort(function(a, b){
-              console.log(a.distance,":", b.distance)
-              return a.distance - b.distance;
-            });
-        return Object.assign({}, state,
-        {
-
-          messages: [...state.messages,               // ES6note: '...' spreads an array into individual values (makes adding the next array item without mutating (i.e. push) easy)
-          {
-            message: action.message,
-            location: action.location,
-            distance: action.distance
-          }
-        ]
+        return Object.assign({}, state, {
+            messages: [...state.messages, {
+                message: action.message,
+                location: action.location,
+                distance: action.distance
+            }]
         });
     default:
       return state;
