@@ -1,5 +1,7 @@
 export const ADD_MESSAGE = 'ADD_MESSAGE';
 export const RECEIVE_MESSAGE = 'RECEIVE_MESSAGE';
+export const REMOVE_MESSAGE = 'REMOVE_MESSAGE';
+
 const Firebase = require('firebase');
 const GeoFire = require('geoFire');
 const config = require('../../../config');
@@ -22,14 +24,21 @@ export function addMessage (message, location) {  //ES6-style module.exports.add
   };
 };
 
-
-
-export function receiveMessage (message, location, distance) {  //ES6-style module.exports.addMessage = addMessage
-  console.log("\n\n\n\n IT GOES TO ACTIONS.JS")
+export function receiveMessage (message, location, distance, key) {  //ES6-style module.exports.addMessage = addMessage
+ // console.log("\n\n\n\n IT GOES TO ACTIONS.JS")
   return {
     type: RECEIVE_MESSAGE,
     message,
     location,
-    distance
+    distance,
+    key
+  };
+};
+
+export function removeMessage (key) {
+  console.log("actions.js FIRE", key)
+  return {
+    type: REMOVE_MESSAGE,
+    key
   };
 };

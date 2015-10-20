@@ -10,7 +10,7 @@ import { Provider } from 'react-redux';
 
 import App from './components/tinyList.js';
 import { messages } from './reducers/reducers.js';
-import { addMessage, receiveMessage } from './actions/actions.js'
+import { addMessage, receiveMessage, removeMessage } from './actions/actions.js'
 
 const Firebase = require('firebase');
 const GeoFire = require('geoFire');
@@ -37,9 +37,17 @@ geoQuery.on("key_entered", function(key, location, distance) {
     .child(key)
     .once('value', function(snapshot) {
         setTimeout(function(){
-          store.dispatch(receiveMessage(snapshot.val().text, location, distance));
+          store.dispatch(receiveMessage(snapshot.val().text, location, distance, key));
         }, 50);
     });
+});
+
+geoQuery.on('key_exited', function(oldChildSnapshot) {
+  console.log("app.js FIRE", oldChildSnapshot);
+  setTimeout(function(){
+    store.dispatch(removeMessage(oldChildSnapshot));
+  }, 50);
+  ;
 });
 
 
