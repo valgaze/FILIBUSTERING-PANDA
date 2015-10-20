@@ -26,8 +26,8 @@ console.log("INITIAL STATE:", typeof store, store.getState());
 
 var geoRef = ref.child("geolocations");
 var geoFire = new GeoFire(geoRef);
-      
-var geoQuery = geoFire.query({
+
+window.geoQuery = geoFire.query({
       center: [50,50],
       radius: 5000
 });
@@ -47,7 +47,11 @@ geoQuery.on('key_exited', function(oldChildSnapshot) {
   setTimeout(function(){
     store.dispatch(removeMessage(oldChildSnapshot));
   }, 50);
-  ;
+  
+});
+
+geoQuery.on('key_moved', function(oldChildSnapshot) {
+  console.log("\n\n\n\n\n\n\nOMG SOMETHING FIRED!", oldChildSnapshot);
 });
 
 
