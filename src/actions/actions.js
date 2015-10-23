@@ -146,10 +146,14 @@ export function toggleLoginModal() {
 export function login(provider) {
   return (dispatch) => {
     dispatch(_loggingIn());
-
     baseRef.authWithOAuthPopup(provider, (error, authData) => {
       if (error) {
-        dispatch(_loginFailure(error));
+        if (error.code === "TRANSPORT_UNAVAILABLE") {
+          //Fallback to redirect: We redirect then come back to page where we started with session
+          //This only fires if there's an error
+          ref.authWithOAuthRedirect(providerName, function(error) { 
+            dispatch(_loginFailure(error));
+          });
       } else {
         _loginOrSignupUser(authData, dispatch);
       }
