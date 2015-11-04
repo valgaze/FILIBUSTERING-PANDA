@@ -46,19 +46,18 @@ export default class CreateMemoryModal extends React.Component {
 
 
   componentDidUpdate() {
-
     loadEmojiDependencies();
-    var emojis = $.map(emojiObject, function(value, i, originalObj) {return {key: value, name:i}});
-    var emoji_config = {
-      at: ":",
+    const emojis = $.map(emojiObject, function(value, i) {return {key: value, name:i};});
+    const emojiConfig = {
+      at: ':',
       data: emojis,
-      displayTpl: "<li>${key}:${name}</li>",
+      displayTpl: '<li>${key}:${name}</li>',
       insertTpl: '${key}',
       delay: 400
-    }
-    if (this.refs.data){
-      $(this.refs.title.refs.input).atwho(emoji_config);
-      $(this.refs.data.refs.input).atwho(emoji_config);
+    };
+    if (this.refs.data) {
+      $(this.refs.title.refs.input).atwho(emojiConfig);
+      $(this.refs.data.refs.input).atwho(emojiConfig);
     }
   }
 

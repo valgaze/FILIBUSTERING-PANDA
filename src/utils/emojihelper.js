@@ -1,3 +1,5 @@
+// eslint ignore: start
+
 export function loadEmojiDependencies() {
         (function (root, factory) {
           if (typeof define === 'function' && define.amd) {
