@@ -5,7 +5,7 @@ import { Surface, Shape, Path } from 'react-art';
 
 import concreteImage from '../assets/concrete.jpg';
 import wandCursor from '../assets/magic.png';
-
+import {emojiObject, loadEmojiDependencies} from '../utils/emojihelper.js';
 export default class CreateMemoryModal extends React.Component {
 
   // GENERAL
@@ -42,6 +42,24 @@ export default class CreateMemoryModal extends React.Component {
 
   componentDidMount() {
     document.addEventListener('mousemove', (e)=>{this.handleMouseMove(e);}, false);
+  }
+
+
+  componentDidUpdate() {
+
+    loadEmojiDependencies();
+    var emojis = $.map(emojiObject, function(value, i, originalObj) {return {key: value, name:i}});
+    var emoji_config = {
+      at: ":",
+      data: emojis,
+      displayTpl: "<li>${key}:${name}</li>",
+      insertTpl: '${key}',
+      delay: 400
+    }
+    if (this.refs.data){
+      $(this.refs.title.refs.input).atwho(emoji_config);
+      $(this.refs.data.refs.input).atwho(emoji_config);
+    }
   }
 
   componentWillUnmount() {
